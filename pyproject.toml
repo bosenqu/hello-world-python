@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hello_world"
+version = "0.0.0"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.in"] }
+
+[project.optional-dependencies]
+dev = [
+    "coverage",
+    "behave",
+    "isort",
+    "lxml",
+    "mypy",
+    "pytest",
+    "pip-tools",
+    "reformat-gherkin",
+    "ruff",
+]
+
+[tool.pip-tools]
+allow_unsafe = true
+generate_hashes = true
+pip_args = "--extra-index-url https://bcms.bloomberg.com/pip/simple"
+strip_extras = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests/unit"]
+
+[tool.mypy]
+exclude = ["steps.py"]
+strict = true
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 120
+extend-select = ["B", "I", "Q"]
