@@ -41,6 +41,7 @@ strict = true
 
 [tool.isort]
 profile = "black"
+src_paths = ["src", "test"]
 
 [tool.ruff]
 line-length = 120
@@ -54,3 +55,5 @@ select = [
     "Q",   # flake8-quotes
     "UP",  # pyupgrade
 ]
+
+[tool.ruff.format]
