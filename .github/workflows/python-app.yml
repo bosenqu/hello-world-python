@@ -1,0 +1,49 @@
+name: Python application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Setup virtual environment
+      run: make setup
+    - name: Install test dependencies
+      run: make install-dev
+    - name: Lint with ruff, reformat-gherkin, and mypy
+      run: make lint-ci
+    - name: Run unit and feature tests
+      run: make test-ci
+    - name: Create test report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Test report
+        path: "reports/**/*.xml"
+        reporter: java-junit
+        list-tests: "failed"
+    - name: Create test Summary
+      uses: test-summary/action@v2
+      if: always()
+      with:
+        paths: "reports/**/*.xml"
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
