@@ -32,6 +32,9 @@ strip_extras = true
 [tool.pytest.ini_options]
 testpaths = ["tests/unit"]
 
+[tool.coverage.run]
+source = ["src"]
+
 [tool.mypy]
 exclude = ["steps.py"]
 strict = true
@@ -41,4 +44,13 @@ profile = "black"
 
 [tool.ruff]
 line-length = 120
-extend-select = ["B", "I", "Q"]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C",   # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "Q",   # flake8-quotes
+    "UP",  # pyupgrade
+]

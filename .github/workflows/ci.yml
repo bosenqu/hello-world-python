@@ -1,4 +1,4 @@
-name: Python application
+name: Python Application CI
 
 on:
   push:
@@ -7,9 +7,10 @@ on:
     branches: [ "master" ]
 
 permissions:
-  contents: read
   actions: read
   checks: write
+  contents: read
+  pull-requests: write
 
 jobs:
   test:
@@ -31,19 +32,24 @@ jobs:
     - name: Run unit and feature tests
       run: make test-ci
     - name: Create test report
-      uses: dorny/test-reporter@v1
+      uses: n-ryu/test-reporter@v0.0.2
       if: always()
       with:
         name: Test report
         path: "reports/**/*.xml"
         reporter: java-junit
         list-tests: "failed"
-    - name: Create test Summary
-      uses: test-summary/action@v2
-      if: always()
-      with:
-        paths: "reports/**/*.xml"
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    - name: Create test summary
+      uses: test-summary/action@v2
+      if: always()
+      with:
+        paths: "reports/**/*.xml"
+    - name: Add coverage report to summary
+      if: always()
+      run: |
+        echo "**Test Coverage Report**" >> $GITHUB_STEP_SUMMARY
+        cat reports/coverage_report.md >> $GITHUB_STEP_SUMMARY

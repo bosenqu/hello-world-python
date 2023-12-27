@@ -1,4 +1,4 @@
-Feature: showing off behave
+Feature: Showing off behave
 
   Scenario: run a simple test
     # This is a basic comment

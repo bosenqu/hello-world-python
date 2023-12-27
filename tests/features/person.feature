@@ -1,4 +1,4 @@
-Feature: test person
+Feature: Test behave table feature
 
   Scenario: test find age
     # This is a basic comment
