@@ -41,14 +41,14 @@ test:
 # Run unit and feature tests with test (junit) and coverage (cobertura) report
 .PHONNY: test-ci
 test-ci:
-	rm -rf $(REPORTS)/unit_tests $(REPORTS)/feature_tests
-	$(PYTHON) -m coverage run --data-file $(REPORTS)/unit_tests/coverage.dat --source src \
+	rm -fr $(REPORTS)
+	$(PYTHON) -m coverage run --data-file $(REPORTS)/unit_tests/coverage.dat \
 		-m pytest -v --junitxml=$(REPORTS)/unit_tests/junit.xml
-	$(PYTHON) -m coverage run --data-file $(REPORTS)/feature_tests/coverage.dat --source src \
+	$(PYTHON) -m coverage run --data-file $(REPORTS)/feature_tests/coverage.dat \
 		-m behave -v --junit --junit-directory=$(REPORTS)/feature_tests
 	$(PYTHON) -m coverage combine $(REPORTS)/*/*.dat 
 	$(PYTHON) -m coverage xml
-	$(PYTHON) -m coverage report
+	$(PYTHON) -m coverage report --format=markdown > $(REPORTS)/coverage_report.md
 
 # Run isort, ruff, and reformat-gherkin formatter
 .PHONNY: format
@@ -64,14 +64,12 @@ lint:
 	$(VENV)/bin/reformat-gherkin --check tests/features
 	$(PYTHON) -m mypy .
 
-# Run ruff and reformat-gherkin format checker. In addition, run mypy with text report
+# Run make lint with more verbose messages
 .PHONNY: lint-ci
 lint-ci:
-	$(PYTHON) -m ruff check .
+	$(PYTHON) -m ruff check -v .
 	$(VENV)/bin/reformat-gherkin --check tests/features
-	rm -rf $(REPORTS)/mypy
-	$(PYTHON) -m mypy --txt-report $(REPORTS)/mypy .
-	cat $(REPORTS)/mypy/index.txt
+	$(PYTHON) -m mypy -v .
 
 # Clean project
 .PHONNY: clean
