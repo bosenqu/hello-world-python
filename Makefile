@@ -53,7 +53,7 @@ test-ci:
 # Run isort, ruff, and reformat-gherkin formatter
 .PHONNY: format
 format:
-	$(PYTHON) -m isort src tests
+	$(PYTHON) -m isort .
 	$(PYTHON) -m ruff format .
 	$(VENV)/bin/reformat-gherkin tests/features
 
@@ -67,9 +67,9 @@ lint:
 # Run make lint with more verbose messages
 .PHONNY: lint-ci
 lint-ci:
+	$(PYTHON) -m mypy -v .
 	$(PYTHON) -m ruff check -v .
 	$(VENV)/bin/reformat-gherkin --check tests/features
-	$(PYTHON) -m mypy -v .
 
 # Clean project
 .PHONNY: clean
