@@ -41,7 +41,6 @@ test:
 # Run unit and feature tests with test (junit) and coverage (cobertura) report
 .PHONNY: test-ci
 test-ci:
-	rm -fr $(REPORTS)
 	$(PYTHON) -m coverage run --data-file $(REPORTS)/unit_tests/coverage.dat \
 		-m pytest -v --junitxml=$(REPORTS)/unit_tests/junit.xml
 	$(PYTHON) -m coverage run --data-file $(REPORTS)/feature_tests/coverage.dat \
@@ -67,7 +66,7 @@ lint:
 # Run make lint with more verbose messages
 .PHONNY: lint-ci
 lint-ci:
-	$(PYTHON) -m mypy -v .
+	$(PYTHON) -m mypy -v --any-exprs-report $(REPORTS)/mypy/ --lineprecision-report $(REPORTS)/mypy/ .
 	$(PYTHON) -m ruff check -v .
 	$(VENV)/bin/reformat-gherkin --check tests/features
 
