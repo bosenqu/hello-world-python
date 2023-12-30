@@ -35,6 +35,9 @@ testpaths = ["tests/unit"]
 [tool.coverage.run]
 source = ["src"]
 
+[tool.coverage.report]
+show_missing = true
+
 [tool.mypy]
 exclude = ["steps.py"]
 strict = true
