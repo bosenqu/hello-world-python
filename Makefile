@@ -47,7 +47,7 @@ test-ci:
 		-m behave -v --junit --junit-directory=$(REPORTS)/feature_tests
 	$(PYTHON) -m coverage combine $(REPORTS)/*/*.dat 
 	$(PYTHON) -m coverage xml
-	$(PYTHON) -m coverage report --format=markdown > $(REPORTS)/coverage_report.md
+	$(PYTHON) -m coverage report > $(REPORTS)/coverage_report.txt
 
 # Run isort, ruff, and reformat-gherkin formatter
 .PHONNY: format

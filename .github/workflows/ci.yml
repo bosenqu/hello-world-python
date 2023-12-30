@@ -45,7 +45,9 @@ jobs:
     - name: Add coverage report to summary
       run: |
         echo "**Test Coverage Report**" >> $GITHUB_STEP_SUMMARY
-        cat reports/coverage_report.md >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        cat reports/coverage_report.txt >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
   
   lint:
     runs-on: ubuntu-latest
