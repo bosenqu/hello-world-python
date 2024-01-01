@@ -63,17 +63,17 @@ jobs:
       run: make lint-ci
     - name: Add mypy reports to summary
       run: |
-        echo "**Mypy line precision report**" >> $GITHUB_STEP_SUMMARY
+        echo "**Mypy Line Precision Report**" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         cat reports/mypy/lineprecision.txt >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
-        echo "**Mypy \`Any\` expression report**" >> $GITHUB_STEP_SUMMARY
+        echo "**Mypy \`Any\` Expression Report**" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         cat reports/mypy/any-exprs.txt >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
-        echo "**Mypy types of \`Any\` report**" >> $GITHUB_STEP_SUMMARY
+        echo "**Mypy Types of \`Any\` Report**" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         cat reports/mypy/types-of-anys.txt >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
