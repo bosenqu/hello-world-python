@@ -2,6 +2,8 @@ import dataclasses
 import datetime
 from typing import List, Optional
 
+import src.utils
+
 
 @dataclasses.dataclass
 class Person:
@@ -19,6 +21,7 @@ def find_age(
     return result[0].age
 
 
+@src.utils.timer(lambda t: print("Function add takes " + str(t) + "ns"))
 def add(a: int, b: int) -> int:
     return a + b
 
